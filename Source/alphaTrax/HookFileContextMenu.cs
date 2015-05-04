@@ -46,18 +46,25 @@ namespace alphaTrax
         private void HookFiles()
         {
             string files = null;
+            string currentPath = null;
+
+
 
             //  Go through each file.
             var counter = 0;
             foreach (var filePath in SelectedItemPaths)
             {
+                MessageBox.Show(filePath);
+                if (!string.IsNullOrEmpty(filePath))
+                    currentPath = Path.GetDirectoryName(filePath);
+
                 //  Count the lines.
                 files += Path.GetFileName(filePath) + ",";
                 counter++;
             }
 
             TraxController cnt = new TraxController();
-            cnt.HookFiles(files);
+            cnt.HookFiles(currentPath, files);
 
             MessageBox.Show(string.Format("{0} file(s) hooked to folder preview", counter.ToString()));
         }
